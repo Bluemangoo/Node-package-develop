@@ -7,7 +7,7 @@ import * as execa from "execa";
 import { spawnSync } from "child_process";
 
 export default function publish(project: Project) {
-    console.log(logSymbols.info, chalk.cyan(`Testing project ${project.current.packageJson.name}`));
+    console.log(logSymbols.info, chalk.cyan(`Publishing project ${project.current.packageJson.name}`));
 
     if (project.publish.pretest) {
         test(project);
@@ -17,6 +17,7 @@ export default function publish(project: Project) {
     }
 
     if (project.publish.gitTag) {
+        console.log(chalk.grey(`$ git tag v${project.current.packageJson.version}`));
         spawnSync("git", ["tag", `v${project.current.packageJson.version}`], {
             shell: true,
             stdio: "inherit"
@@ -24,7 +25,8 @@ export default function publish(project: Project) {
     }
 
     if (project.publish.pushGitTag) {
-        spawnSync("git", ["git", "push", "origin", "--tags"], {
+        console.log(chalk.grey("$ git push origin --tags"));
+        spawnSync("git", ["push", "origin", "--tags"], {
             shell: true,
             stdio: "inherit"
         });
@@ -44,6 +46,7 @@ export default function publish(project: Project) {
             }
         }
 
+        console.log(chalk.grey("$ npm publish"));
         spawnSync("npm", ["publish"], {
             shell: true,
             stdio: "inherit"
@@ -55,5 +58,5 @@ export default function publish(project: Project) {
     }
 
 
-    console.log(logSymbols.success, chalk.green(`Test success.`));
+    console.log(logSymbols.success, chalk.green(`Publish success.`));
 }

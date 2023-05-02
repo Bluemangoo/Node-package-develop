@@ -3,6 +3,7 @@
 tsconfig.json
 .prettierrc.json
 .prettierignore
+.npmrc
 npd.json
 
 # Typescript Files
