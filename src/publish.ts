@@ -7,14 +7,14 @@ import * as execa from "execa";
 import { spawnSync } from "child_process";
 
 export default function publish(project: Project) {
-    console.log(logSymbols.info, chalk.cyan(`Publishing project ${project.current.packageJson.name}`));
-
     if (project.publish.pretest) {
         test(project);
     }
     if (project.publish.prebuild) {
         build(project);
     }
+
+    console.log(logSymbols.info, chalk.cyan(`Publishing project ${project.current.packageJson.name}`));
 
     if (project.publish.gitTag) {
         console.log(chalk.grey(`$ git tag v${project.current.packageJson.version}`));
