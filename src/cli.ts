@@ -17,8 +17,8 @@ program
     .description("Node Package Develop");
 
 program
-    .option("--skip-test", "Skip testing before publishing")
-    .option("--skip-build", "Skip building before publishing");
+    .option("--skip-test", "Skip testing before publishing", false)
+    .option("--skip-build", "Skip building before publishing", false);
 
 
 program
@@ -52,3 +52,5 @@ program
     });
 
 program.parse(process.argv);
+
+export { program };

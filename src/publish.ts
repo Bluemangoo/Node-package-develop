@@ -5,12 +5,13 @@ import * as chalk from "chalk";
 import * as logSymbols from "log-symbols";
 import * as execa from "execa";
 import { spawnSync } from "child_process";
+import { program } from "./cli";
 
 export default function publish(project: Project) {
-    if (project.publish.pretest) {
+    if (project.publish.pretest&&!(<any>program).skipTest) {
         test(project);
     }
-    if (project.publish.prebuild) {
+    if (project.publish.prebuild&&!(<any>program).skipBuild) {
         build(project);
     }
 
