@@ -57,6 +57,17 @@ export default function publish(project: Project) {
         }
     }
 
+    if (project.publish.projectScripts) {
+        if (project.current.packageJson.scripts) {
+            if (project.current.packageJson.scripts.publish) {
+                spawnSync("npm", ["run", "publish"], {
+                    shell: true,
+                    stdio: "inherit"
+                });
+            }
+        }
+    }
+
 
     console.log(logSymbols.success, chalk.green(`Publish success.`));
 }
