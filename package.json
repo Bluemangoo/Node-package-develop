@@ -1,0 +1,36 @@
+{
+  "name": "node-package-develop",
+  "version": "0.0.1",
+  "description": "Manage your node packages",
+  "main": "index.js",
+  "bin": {
+    "node-package-develop": "bin/npd.js",
+    "npd": "bin/npd.js"
+  },
+  "directories": {
+    "lib": "./lib",
+    "bin": "./bin"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Bluemangoo",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0",
+    "execa": "^5.1.1",
+    "inquirer": "^8.2.5",
+    "log-symbols": "^4.1.0",
+    "minimist": "^1.2.8",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^18.16.3",
+    "typescript": "^5.0.4"
+  }
+}
