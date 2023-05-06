@@ -1,6 +1,7 @@
 # Project Configs
 /.idea
 .npmrc
+npd.json
 
 # Node Modules
 /node_modules
