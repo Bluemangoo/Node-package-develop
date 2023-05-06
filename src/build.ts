@@ -5,7 +5,7 @@ import logger from "./utils/logger";
 export default function build(project: Project) {
     logger.info(`Building project ${project.current.packageJson.name}`);
 
-    if (project.test.projectScripts) {
+    if (project.check.projectScripts) {
         if (project.current.packageJson.scripts && project.current.packageJson.scripts.build) {
             try {
                 spawnSync("npm", ["run", "build"], {

@@ -11,7 +11,7 @@ export default function loadProject(): Project {
     }
 
     let project: Project = { ...defaultConfig, ...written };
-    project.test = { ...defaultConfig.test, ...written.test };
+    project.check = { ...defaultConfig.check, ...written.test };
     project.build = { ...defaultConfig.build, ...written.build };
     project.publish = { ...defaultConfig.publish, ...written.publish };
     // project.userScripts = { ...defaultConfig.userScripts, ...written.userScripts };
@@ -19,7 +19,7 @@ export default function loadProject(): Project {
     project.current.hasConfig = hasConfig;
 
     if (!project.publish.gitTag) {
-        project.test.gitTag = false;
+        project.check.gitTag = false;
     }
 
     return project;
@@ -52,7 +52,7 @@ const current = {
 };
 
 const defaultConfig: Project = {
-    test: {
+    check: {
         gitTag: current.isGitRepo,
         npm: true,
         npmIgnore: true,

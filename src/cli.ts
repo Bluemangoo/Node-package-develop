@@ -5,7 +5,7 @@ import * as fs from "fs";
 import Project from "./types/project";
 import loadProject from "./utils/load-project";
 import publish from "./publish";
-import test from "./test";
+import check from "./check";
 import build from "./build";
 
 const project: Project = loadProject();
@@ -17,18 +17,18 @@ program
     .description("Node Package Develop");
 
 program
-    .option("--skip-test", "Skip testing before publishing", false)
+    .option("--skip-check", "Skip testing before publishing", false)
     .option("--skip-build", "Skip building before publishing", false);
 
 
 program
-    .command("test")
-    .description("Test if it can be published")
+    .command("check")
+    .description("Check if it can be published")
     .action(async () => {
         if (minimist(process.argv.slice(3))._.length > 0) {
             console.log(chalk.yellow("\n Info: You provided argument(s), which will be ignored."));
         }
-        test(project);
+        check(project);
     });
 
 program

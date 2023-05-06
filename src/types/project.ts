@@ -1,5 +1,5 @@
 export default interface Project {
-    test: {
+    check: {
         gitTag: boolean,
         npm: boolean,
         npmIgnore: boolean,

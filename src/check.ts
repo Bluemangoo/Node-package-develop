@@ -4,27 +4,27 @@ import { spawnSync } from "child_process";
 import * as fs from "fs";
 import logger from "./utils/logger";
 
-export default function test(project: Project) {
+export default function check(project: Project) {
 
     if (!project.current.packageJson.exist) {
-        logger.error(new Error("Test Failed"), "This is not a node project.");
+        logger.error(new Error("Check Failed"), "This is not a node project.");
     }
 
     if (!project.current.packageJson.name) {
-        logger.error(new Error("Test Failed"), "No project name founded in package.json.");
+        logger.error(new Error("Check Failed"), "No project name founded in package.json.");
     }
 
     if (!project.current.packageJson.version) {
-        logger.error(new Error("Test Failed"), "No version found in package.json.");
+        logger.error(new Error("Check Failed"), "No version found in package.json.");
     }
 
-    if (!project.current.isGitRepo && project.test.gitTag) {
-        logger.error(new Error("Test Failed"), "Test git option is on, but no git root was found. Try to switch 'test.git' to false.");
+    if (!project.current.isGitRepo && project.check.gitTag) {
+        logger.error(new Error("Check Failed"), "Check git option is on, but no git root was found. Try to switch 'check.git' to false.");
     }
 
-    logger.info(`Testing project ${project.current.packageJson.name}`);
+    logger.info(`Checking project ${project.current.packageJson.name}`);
 
-    if (project.test.gitTag) {
+    if (project.check.gitTag) {
         logger.currentInfo("Checking git tag");
         let success = true;
         try {
@@ -33,11 +33,11 @@ export default function test(project: Project) {
         } catch {
         }
         if (!success) {
-            logger.error(new Error("Test Failed"), "Git tag for this version is already existed. Remember to update version in package.json.");
+            logger.error(new Error("Check Failed"), "Git tag for this version is already existed. Remember to update version in package.json.");
         }
     }
 
-    if (project.test.npm) {
+    if (project.check.npm) {
         logger.currentInfo("Checking npm");
         let success;
         try {
@@ -47,11 +47,11 @@ export default function test(project: Project) {
             success = true;
         }
         if (!success) {
-            logger.error(new Error("Test Failed"), "Npm tag for this version is already existed. Remember to update version in package.json.");
+            logger.error(new Error("Check Failed"), "Npm tag for this version is already existed. Remember to update version in package.json.");
         }
     }
 
-    if (project.test.npmIgnore && project.current.hasConfig) {
+    if (project.check.npmIgnore && project.current.hasConfig) {
         logger.currentInfo("Checking npm ignore");
         let excludes: string[] = [];
         try {
@@ -60,19 +60,19 @@ export default function test(project: Project) {
                 .split("\n")
                 .filter(line => line.trim() && !line.startsWith("#"));
         } catch {
-            logger.error(new Error("Test Failed"), ".npmignore file is not exist.");
+            logger.error(new Error("Check Failed"), ".npmignore file is not exist.");
         }
 
         if (!excludes.includes("npd.json")) {
-            logger.error(new Error("Test Failed"), "npd.json is not included in .npmignore.");
+            logger.error(new Error("Check Failed"), "npd.json is not included in .npmignore.");
         }
     }
 
-    if (project.test.projectScripts) {
+    if (project.check.projectScripts) {
         if (project.current.packageJson.scripts) {
             if (project.current.packageJson.scripts.test) {
                 try {
-                    spawnSync("npm", ["run", "test"], {
+                    spawnSync("npm", ["run", "check"], {
                         stdio: "inherit",
                         shell: project.current.shell
                     });
@@ -88,5 +88,5 @@ export default function test(project: Project) {
     }
 
     logger.cancelCurrent()
-    logger.success(`Test success.`);
+    logger.success(`Check success.`);
 }

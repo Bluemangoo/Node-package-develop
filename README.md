@@ -10,9 +10,9 @@ $ npm install -g node-package-develop
 
 ## Use
 
-Test project:
+Check project:
 ```shell
-$ npd test
+$ npd check
 ```
 
 Build project:
@@ -25,22 +25,22 @@ Publish project:
 $ npd build
 ```
 
-*The publish command will automatically run test and build by default*
+*The publish command will automatically run check and build by default*
 
 ## Config
 
 Create file `npd.json` at project's root.
 
-- [test](#test)
+- [check](#check)
 - [build](#build)
 - [publish](#publish)
 
-### test
+### check
 
 - gitTag(boolean, true): whether to check if git tag is existed;  
 - npm(boolean, true): whether to check if this version is existed on the registry;
 - npmIgnore(boolean, true): whether to check if `npd.json` file is in `.npmignore`;
-- projectScripts(boolean, true): whether to run script `test` in `package.json`.
+- projectScripts(boolean, true): whether to run script `check` in `package.json`.
 
 ### build
 
@@ -48,7 +48,7 @@ Create file `npd.json` at project's root.
 
 ### publish
 
-- pretest(boolean, true): whether to run test before publish;
+- pretest(boolean, true): whether to run check before publish;
 - prebuild(boolean, true): whether to run build before publish;
 - gitTag(boolean, true): whether to tag the current commit;
 - pushGitTag(boolean, true): whether to push tag to origin after tagging;
@@ -58,5 +58,5 @@ Create file `npd.json` at project's root.
 
 ## Args
 
-- --skip-test: Skip testing before publishing;
+- --skip-check: Skip testing before publishing;
 - --skip-build: Skip building before publishing.

@@ -1,5 +1,5 @@
 import Project from "./types/project";
-import test from "./test";
+import check from "./check";
 import build from "./build";
 import * as execa from "execa";
 import { spawnSync } from "child_process";
@@ -8,7 +8,7 @@ import logger from "./utils/logger";
 
 export default function publish(project: Project) {
     if (project.publish.pretest && !(<any>program).skipTest) {
-        test(project);
+        check(project);
     }
     if (project.publish.prebuild && !(<any>program).skipBuild) {
         build(project);
