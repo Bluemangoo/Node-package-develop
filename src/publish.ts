@@ -28,12 +28,12 @@ export default function publish(project: Project) {
 
     logger.currentInfo(`Pushing tags to origin`);
 
-    if (project.publish.gitTag.push && project.publish.gitTag.origins.length) {
+    if (project.publish.gitTag.use && project.publish.gitTag.push && project.publish.gitTag.origins.length) {
         const origins = project.publish.gitTag.origins;
         for (let i = 0; i <= origins.length; i++) {
             try {
                 spawnSync("git", ["push", origins[i], "--tags"], {
-                    stdio: [project.publish.gitTag.output ? "inherit" : "ignore", "inherit", "inherit"],
+                    stdio: project.publish.gitTag.output ? "inherit" : "ignore",
                     shell: project.current.shell
                 });
             } catch (e) {
