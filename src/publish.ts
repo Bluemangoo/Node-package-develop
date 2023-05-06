@@ -67,9 +67,9 @@ export default function publish(project: Project) {
         }
 
         if (project.publish.npm.output) {
-            logger.currentInfo("Publishing to npm");
-        } else {
             logger.cancelCurrent();
+        } else {
+            logger.currentInfo("Publishing to npm");
         }
         try {
             spawnSync("npm", ["publish"], {
