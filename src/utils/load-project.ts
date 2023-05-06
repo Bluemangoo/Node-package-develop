@@ -47,7 +47,8 @@ function getPackageJson() {
 const current = {
     hasConfig: false,
     isGitRepo: isGitRepo(),
-    packageJson: getPackageJson()
+    packageJson: getPackageJson(),
+    shell: process.platform == "win32"
 };
 
 const defaultConfig: Project = {
@@ -55,27 +56,32 @@ const defaultConfig: Project = {
         gitTag: current.isGitRepo,
         npm: true,
         npmIgnore: true,
-        projectScripts: true,
-        userScripts: true
+        projectScripts: true
     },
     build: {
-        projectScripts: true,
-        userScripts: true
+        projectScripts: true
     },
     publish: {
         pretest: true,
         prebuild: true,
-        gitTag: current.isGitRepo,
-        pushGitTag: current.isGitRepo,
-        npm: true,
-        changeRegistry: true,
-        projectScripts: true,
-        userScripts: true
+        gitTag: {
+            use: true,
+            push: true,
+            ignoreError: false,
+            origins: ["origin"],
+            output: false
+        },
+        npm: {
+            use: true,
+            changeRegistry: true
+        },
+        projectScripts: true
     },
-    // userScripts: {},
+    ignoreError: false,
     current: {
         hasConfig: current.hasConfig,
         isGitRepo: current.isGitRepo,
-        packageJson: current.packageJson
+        packageJson: current.packageJson,
+        shell: current.shell
     }
 };

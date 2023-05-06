@@ -3,27 +3,32 @@ export default interface Project {
         gitTag: boolean,
         npm: boolean,
         npmIgnore: boolean,
-        projectScripts: boolean,
-        userScripts: boolean
+        projectScripts: boolean
     },
     build: {
-        projectScripts: boolean,
-        userScripts: boolean
+        projectScripts: boolean
     },
     publish: {
         pretest: boolean,
         prebuild: boolean,
-        gitTag: boolean,
-        pushGitTag: boolean,
-        npm: boolean,
-        changeRegistry: boolean,
-        projectScripts: boolean,
-        userScripts: boolean
+        gitTag: {
+            use: boolean,
+            push: boolean,
+            ignoreError: boolean,
+            origins: string[],
+            output: boolean
+        },
+        npm: {
+            use: boolean,
+            changeRegistry: boolean,
+        },
+        projectScripts: boolean
     },
-    // userScripts: { [key: string]: string },
+    ignoreError: boolean,
     current: {
         hasConfig: boolean,
         isGitRepo: boolean,
-        packageJson: { exist: boolean, name?: string, version?: string, scripts?: { [key: string]: string } }
+        packageJson: { exist: boolean, name?: string, version?: string, scripts?: { [key: string]: string } },
+        shell: boolean
     }
 };
