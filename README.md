@@ -50,10 +50,16 @@ Create file `npd.json` at project's root.
 
 - pretest(boolean, true): whether to run check before publish;
 - prebuild(boolean, true): whether to run build before publish;
-- gitTag(boolean, true): whether to tag the current commit;
-- pushGitTag(boolean, true): whether to push tag to origin after tagging;
-- npm(boolean, true): whether to publish to npm;
-- changeRegistry(boolean, true): whether to check the registry, and if not npm, change it to npm;
+- gitTag
+  - use(boolean, true): whether to tag the current commit;
+  - push(boolean, true): whether to push tag to origin after tagging;
+  - ignoreError(boolean, false): whether to ignore error on pushing to origins;
+  - origins(string[], \[\"origin\"\]):origins to push;
+  - output(boolean, false):whether to show git output;
+- npm
+  - use(boolean, true): whether to publish to npm;
+  - changeRegistry(boolean, true): whether to check the registry, and if not npm, change it to npm;
+  - output(boolean, true): weather to show npm output;
 - projectScripts(boolean, true): whether to run script `publish` in `package.json`.
 
 ## Args
