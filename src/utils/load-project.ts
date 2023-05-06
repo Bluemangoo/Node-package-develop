@@ -19,6 +19,8 @@ export default function loadProject(): Project {
     project.check = { ...defaultConfig.check, ...written.test };
     project.build = { ...defaultConfig.build, ...written.build };
     project.publish = { ...defaultConfig.publish, ...written.publish };
+    project.publish.gitTag = { ...defaultConfig.publish.gitTag, ...written.publish.gitTag };
+    project.publish.npm = { ...defaultConfig.publish.npm, ...written.publish.npm };
     project.current = defaultConfig.current;
     project.current.hasConfig = hasConfig;
 
