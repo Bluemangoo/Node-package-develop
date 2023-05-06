@@ -1,5 +1,6 @@
 import Project from "../types/project";
 import * as fs from "fs";
+import logger from "./logger";
 
 export default function loadProject(): Project {
     let written: any = {};
@@ -10,16 +11,23 @@ export default function loadProject(): Project {
     } catch {
     }
 
+    if (written.current) {
+        logger.warn("The `current` will be ignored. Remove it from config.");
+    }
+
     let project: Project = { ...defaultConfig, ...written };
     project.check = { ...defaultConfig.check, ...written.test };
     project.build = { ...defaultConfig.build, ...written.build };
     project.publish = { ...defaultConfig.publish, ...written.publish };
-    // project.userScripts = { ...defaultConfig.userScripts, ...written.userScripts };
     project.current = defaultConfig.current;
     project.current.hasConfig = hasConfig;
 
     if (!project.publish.gitTag) {
         project.check.gitTag = false;
+    }
+
+    if (project.ignoreError) {
+        logger.warn("`ignoreError` is on now, which might cause unknown bugs. Switch it off.");
     }
 
     return project;
