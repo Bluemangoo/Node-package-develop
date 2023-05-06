@@ -13,11 +13,7 @@ export default function build(project: Project) {
                     shell: project.current.shell
                 });
             } catch (e) {
-                if (project.ignoreError) {
-                    logger.warning(`Error when running $ npm run build`);
-                } else {
-                    logger.error(e);
-                }
+                logger.throwOrWarn(project.ignoreError, `Error when running $ npm run build`);
             }
 
         }

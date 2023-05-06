@@ -22,11 +22,7 @@ export default function publish(project: Project) {
         try {
             execa.sync("git", ["tag", `v${project.current.packageJson.version}`]);
         } catch (e) {
-            if (project.ignoreError) {
-                logger.warning(`Error when running $ git tag v${project.current.packageJson.version}`);
-            } else {
-                logger.error(e);
-            }
+            logger.throwOrWarn(project.ignoreError, e, `Error when running $ git tag v${project.current.packageJson.version}`);
         }
     }
 
@@ -41,11 +37,7 @@ export default function publish(project: Project) {
                     shell: project.current.shell
                 });
             } catch (e) {
-                if (project.ignoreError || project.publish.gitTag.ignoreError) {
-                    logger.warning(`Error when running $ git push ${origins[i]} --tags`);
-                } else {
-                    logger.error(e);
-                }
+                logger.throwOrWarn(project.ignoreError, e, `Error when running $ git push ${origins[i]} --tags`);
             }
         }
     }
@@ -59,11 +51,7 @@ export default function publish(project: Project) {
             try {
                 currentRegistry = execa.sync("npm", ["get", "registry"]).stdout;
             } catch (e) {
-                if (project.ignoreError) {
-                    logger.warning(`Error when running $ npm get registry`);
-                } else {
-                    logger.error(e);
-                }
+                logger.throwOrWarn(project.ignoreError, e, `Error when running $ npm get registry`);
             }
 
             if (currentRegistry != "https://registry.npmjs.org/") {
@@ -73,11 +61,7 @@ export default function publish(project: Project) {
                 try {
                     execa.sync("npm", ["config", "set", "registry", "https://registry.npmjs.org/"]);
                 } catch (e) {
-                    if (project.ignoreError) {
-                        logger.warning(`Error when running $ npm config set registry https://registry.npmjs.org/`);
-                    } else {
-                        logger.error(e);
-                    }
+                    logger.throwOrWarn(project.ignoreError, e, `Error when running $ npm config set registry https://registry.npmjs.org/`);
                 }
             }
         }
@@ -89,22 +73,14 @@ export default function publish(project: Project) {
                 shell: project.current.shell
             });
         } catch (e) {
-            if (project.ignoreError) {
-                logger.warning(`Error when running $ npm publish`);
-            } else {
-                logger.error(e);
-            }
+            logger.throwOrWarn(project.ignoreError, e, `Error when running $ npm publish`);
         }
 
         if (needRecoverRegistry) {
             try {
                 execa.sync("npm", ["config", "set", "registry", currentRegistry]);
             } catch (e) {
-                if (project.ignoreError) {
-                    logger.warning(`Error when running $ npm config set registry ${currentRegistry}`);
-                } else {
-                    logger.error(e);
-                }
+                logger.throwOrWarn(project.ignoreError, e, `Error when running $ npm config set registry ${currentRegistry}`);
             }
         }
     }
@@ -118,11 +94,7 @@ export default function publish(project: Project) {
                         shell: project.current.shell
                     });
                 } catch (e) {
-                    if (project.ignoreError) {
-                        logger.warning(`Error when running $ npm run publish`);
-                    } else {
-                        logger.error(e);
-                    }
+                    logger.throwOrWarn(project.ignoreError, e, `Error when running $ npm run publish`);
                 }
             }
         }

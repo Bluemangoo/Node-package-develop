@@ -1,5 +1,6 @@
 import * as chalk from "chalk";
 import * as logSymbols from "log-symbols";
+import Project from "../types/project";
 
 class Logger {
     private removeAndNew: boolean = false;
@@ -7,11 +8,11 @@ class Logger {
     private readonly cls = "\u001B[1F\u001B[2K\u001B[1G";
 
     public info(msg: string) {
-        let log = msg;
+        let prefix = "";
         if (this.removeAndNew) {
-            log = this.cls + log;
+            prefix = this.cls;
         }
-        console.log(logSymbols.info, chalk.cyan(log));
+        console.log(prefix, logSymbols.info, chalk.cyan(msg));
         if (this.removeAndNew) {
             console.log(logSymbols.info, chalk.cyan(this.latest));
         }
@@ -19,11 +20,11 @@ class Logger {
 
     currentInfo(msg: string) {
         this.latest = msg;
-        let log = msg;
+        let prefix = "";
         if (this.removeAndNew) {
-            log = this.cls + log;
+            prefix = this.cls;
         }
-        console.log("✨", log);
+        console.log(prefix, "✨", msg);
 
     }
 
@@ -34,14 +35,37 @@ class Logger {
         }
     }
 
-    public warning(msg: string) {
-        let log = msg;
+    public warn(msg: string) {
+        let prefix = "";
         if (this.removeAndNew) {
-            log = this.cls + log;
+            prefix = this.cls;
         }
-        console.log(logSymbols.warning, chalk.yellow(log));
+        console.warn(prefix, logSymbols.warning, chalk.yellow(msg));
         if (this.removeAndNew) {
             this.info(this.latest);
+        }
+    }
+
+    public throwOrWarn(ignoreError: boolean, err: unknown, further?: string) {
+        if (ignoreError) {
+            let prefix = "";
+
+            if (this.removeAndNew) {
+                prefix = this.cls;
+            }
+
+            if (further) {
+                console.warn(prefix, logSymbols.warning, chalk.yellow(further));
+                console.warn(err);
+            } else {
+                console.warn(prefix, err);
+            }
+
+            if (this.removeAndNew) {
+                this.info(this.latest);
+            }
+        } else {
+            this.error(err, further);
         }
     }
 
@@ -53,11 +77,11 @@ class Logger {
     }
 
     public success(msg: string) {
-        let log = msg;
+        let prefix = "";
         if (this.removeAndNew) {
-            log = this.cls + log;
+            prefix = this.cls;
         }
-        console.log(logSymbols.success, chalk.green(log));
+        console.log(prefix, logSymbols.success, chalk.green(msg));
         if (this.removeAndNew) {
             this.info(this.latest);
         }

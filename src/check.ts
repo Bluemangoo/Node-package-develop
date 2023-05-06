@@ -77,16 +77,12 @@ export default function check(project: Project) {
                         shell: project.current.shell
                     });
                 } catch (e) {
-                    if (project.ignoreError) {
-                        logger.warning(`Error when running $ npm run test`);
-                    } else {
-                        logger.error(e);
-                    }
+                    logger.throwOrWarn(project.ignoreError, `Error when running $ npm run test`);
                 }
             }
         }
     }
 
-    logger.cancelCurrent()
+    logger.cancelCurrent();
     logger.success(`Check success.`);
 }
