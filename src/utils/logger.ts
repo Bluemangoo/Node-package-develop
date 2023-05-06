@@ -1,6 +1,5 @@
 import * as chalk from "chalk";
 import * as logSymbols from "log-symbols";
-import Project from "../types/project";
 
 class Logger {
     private removeAndNew: boolean = false;
