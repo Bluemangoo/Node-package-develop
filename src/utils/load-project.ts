@@ -85,7 +85,8 @@ const defaultConfig: Project = {
         },
         npm: {
             use: true,
-            changeRegistry: true
+            changeRegistry: true,
+            output: true
         },
         projectScripts: true
     },

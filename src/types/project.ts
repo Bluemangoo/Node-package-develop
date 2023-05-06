@@ -21,6 +21,7 @@ export default interface Project {
         npm: {
             use: boolean,
             changeRegistry: boolean,
+            output: boolean
         },
         projectScripts: boolean
     },

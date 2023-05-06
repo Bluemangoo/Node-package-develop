@@ -66,10 +66,14 @@ export default function publish(project: Project) {
             }
         }
 
-        logger.currentInfo("Publishing to npm");
+        if (project.publish.gitTag.output) {
+            logger.currentInfo("Publishing to npm");
+        } else {
+            logger.cancelCurrent();
+        }
         try {
             spawnSync("npm", ["publish"], {
-                stdio: "inherit",
+                stdio: project.publish.gitTag.output ? "inherit" : "ignore",
                 shell: project.current.shell
             });
         } catch (e) {
