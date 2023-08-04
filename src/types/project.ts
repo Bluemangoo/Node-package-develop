@@ -6,7 +6,8 @@ export default interface Project {
         projectScripts: boolean
     },
     build: {
-        projectScripts: boolean
+        projectScripts: boolean,
+        removeCR: string[]
     },
     publish: {
         pretest: boolean,

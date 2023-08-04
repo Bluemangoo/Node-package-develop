@@ -71,7 +71,8 @@ const defaultConfig: Project = {
         projectScripts: true
     },
     build: {
-        projectScripts: true
+        projectScripts: true,
+        removeCR: []
     },
     publish: {
         pretest: true,
