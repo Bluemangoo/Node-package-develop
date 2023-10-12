@@ -66,3 +66,8 @@ Create file `npd.json` at project's root.
 
 - --skip-check: Skip testing before publishing;
 - --skip-build: Skip building before publishing.
+
+## Thanks
+<a href="https://jb.gg/OpenSourceSupport">
+   <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo." width="200px" height="200px">
+</a>
